@@ -8,19 +8,6 @@ from selenium.webdriver.chrome.options import Options
 from fpdf import FPDF
 import shutil
 
-manga_url = input("Введите ссылку на мангу:")
-start_chapter = int(input("Введите начальную главу: "))
-end_chapter = int(input("Введите конечную главу: "))
-
-
-IMAGES_DIR = "manga_images"
-os.makedirs(IMAGES_DIR, exist_ok=True)
-
-
-options = Options()
-options.add_argument("--headless")
-service = Service("./chromedriver")
-
 
 def download_images(url, chapter):
     driver = webdriver.Chrome(service=service, options=options)
@@ -72,6 +59,14 @@ def create_pdf(image_paths, output_pdf):
 
 
 if __name__ == "__main__":
+    manga_url = input("Введите ссылку на мангу:")
+    start_chapter = int(input("Введите начальную главу: "))
+    end_chapter = int(input("Введите конечную главу: "))
+    IMAGES_DIR = "manga_images"
+    os.makedirs(IMAGES_DIR, exist_ok=True)
+    options = Options()
+    options.add_argument("--headless")
+    service = Service("./chromedriver")
     for chapter in range(start_chapter, end_chapter + 1):
         url = f"{manga_url}/chapter/{chapter}"
         image_paths = download_images(url, chapter)
