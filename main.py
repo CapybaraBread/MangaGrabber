@@ -54,7 +54,7 @@ def preprocess_images(image_paths):
     for image_path in image_paths:
         try:
             with Image.open(image_path) as img:
-                rgb_image = img.convert("RGB") 
+                rgb_image = img.convert("RGB")
                 processed_path = image_path.replace(".jpeg", "_processed.jpeg")
                 rgb_image.save(processed_path, "JPEG")
                 processed_paths.append(processed_path)
@@ -78,7 +78,5 @@ if __name__ == "__main__":
         processed_paths = preprocess_images(image_paths)
         pdf_name = f"manga_chapter_{chapter}.pdf"
         create_pdf(processed_paths, pdf_name)
-
-
     shutil.rmtree(IMAGES_DIR)
     print("Все главы успешно скачаны и сохранены в PDF!")
